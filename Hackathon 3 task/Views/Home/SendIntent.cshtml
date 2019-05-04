@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Hackathon_3_task.Models.OutputModelWithText>
+
+@{
+    ViewBag.Title = "Results";
+}
+
+<h2>Results</h2>
+
+
+@foreach (var item in Model)
+{
+    <h7>
+        text: @Html.DisplayFor(modelItem => item.text)
+    </h7>
+    <table class="table">
+        <tr>
+            <td>
+                start index
+            </td>
+            <td>
+                Intent
+            </td>
+        </tr>
+        @foreach (var c in item.intents)
+        {
+            <tr>
+                <td>
+                    @c.startsAt
+                </td>
+                <td>
+                    @c.text
+                </td>
+            </tr>
+
+        }
+    </table>
+
+    @*</td>*@
+}
+<form method="post" action="GetJSON">
+    <input id="13431" name="fileName" type="text" value ="@ViewBag.fileName" hidden />
+    <div class="text-center">
+        <input class="btn btn-primary btn-lg" type="submit" value="Get JSON" />
+    </div>
+</form>

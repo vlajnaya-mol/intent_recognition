@@ -1,0 +1,51 @@
+﻿@model Hackathon_3_task.Models.OutputModelWithText
+
+@{
+    ViewBag.Title = "ResultWithText";
+}
+
+<h2>Result</h2>
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+           <h5>
+                    @Html.DisplayNameFor(model => model.text)
+           </h5>
+           <p>
+               @Html.DisplayFor(model => model.text)
+           </p>
+        </div>
+        <div class="col-md-8">
+            @if (ViewBag.Zero == true)
+            {
+                <p>There are no intents in the text</p>
+            }
+            else
+            {
+            <table>
+                <tr>
+                    <td style="padding-right:10px"> startsAt </td>
+                    <td>text</td>
+                </tr>
+                @foreach (var c in Model.intents)
+                {
+                    <tr>
+                        <td  style="padding-right:10px">
+                            @c.startsAt
+                        </td>
+                        <td>
+                            @c.text
+                        </td>
+                    </tr>
+
+                }
+            </table>
+            }
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Send another intent", "Intent")
+</p>

@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Intent";
+}
+<div class="container">
+    <h2 style="padding-left: 70px;"> Intent</h2>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="text-center">
+                <h3>You can input text here</h3>
+            </div>
+                <form method="post" action="ResultWithText">
+                    <div class="text-center" style="  padding: 0px 0px 20px 0px;">
+                        <textarea id="4555" type="text" name="Text" rows="12" cols="70" style="width:auto"> </textarea>
+                    </div>
+                    <div class="text-center">
+                        <input class="btn btn-primary btn-lg" type="submit" value="Send" />
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2">
+                <h3>Or</h3>
+            </div>
+            <div class="col-md-5">
+                <script src="~/Scripts/dropzone/dropzone.min.js"></script>
+                <link href="~/Scripts/dropzone/dropzone.min.css" rel="stylesheet" />
+                <h3>You can send JSON file</h3>
+                <div class="jumbotron">
+                    <form action="~/Home/Upload"
+                          class="dropzone"
+                          id="dropzoneJsForm"
+                          style="background-color:#ffffff; border-style:dashed; border-color:#007bff;">
+                        <div class="dz-message" data-dz-message><b>Click here or drag and drop files here to send</b></div>
+                    </form>
+                </div>
+                <form method="post" action="SendIntent">
+                    <input id="13431" name="fileName" type="text" hidden />
+                    <div class="text-center">
+                        <input class="btn btn-primary btn-lg" type="submit" value="Send" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+</div>
+
+
+
+@section scripts {
+    @Scripts.Render("~/bundles/dropzone")
+
+    <script type="text/javascript">
+
+        Dropzone.options.dropzoneJsForm =
+            {
+                maxFilesize: 1000.0,
+                init: function () {
+                    this.on("success", function (data) {
+                        var res = JSON.parse(data.xhr.responseText);
+                        res.MyFiles.forEach(
+                            function (item, i, arr) {
+                                var uploadId = document.getElementById("13431");
+                                uploadId.setAttribute("value", item);
+                            }
+                        );
+                    });
+                },
+            }
+    </script>
+}
